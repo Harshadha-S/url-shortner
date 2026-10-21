@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0b10">
+    <meta name="description" content="Shorten links in seconds with optional custom aliases and expiry dates. No sign-up needed.">
+    <title>Shortly — Shorten a link in seconds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <a class="logo" href="/" aria-label="Shortly home">
+            <span class="logo-mark">s.</span>
+            <span>shortly</span>
+        </a>
+        <span class="header-note">Simple links. No accounts.</span>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <div class="eyebrow"><span class="status-dot"></span> FREE URL SHORTENER</div>
+            <h1>Shorten a link<br>in <span>seconds.</span></h1>
+            <p class="subtitle">Custom aliases and expiry dates, no sign-up needed.</p>
+        </section>
+
+        <section class="form-card" aria-label="Create a short link">
+            <form id="shorten-form">
+                <label for="url">Your long URL</label>
+                <input
+                    id="url"
+                    name="url"
+                    type="url"
+                    placeholder="https://example.com/your-very-long-link"
+                    autocomplete="url"
+                    required
+                >
+
+                <div class="field-heading">
+                    <label for="alias">Custom alias</label>
+                    <span class="optional">OPTIONAL</span>
+                </div>
+                <div class="alias-input">
+                    <span class="alias-prefix" id="alias-prefix">shortly.local/</span>
+                    <input
+                        id="alias"
+                        name="alias"
+                        type="text"
+                        placeholder="my-resume"
+                        minlength="3"
+                        maxlength="30"
+                        pattern="[a-zA-Z0-9_-]{3,30}"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                </div>
+                <p class="field-hint">3–30 letters, numbers, hyphens or underscores.</p>
+
+                <div class="field-heading expiry-heading">
+                    <label for="expires-at">Expires on</label>
+                    <span class="optional">OPTIONAL</span>
+                </div>
+                <input id="expires-at" name="expires-at" type="datetime-local">
+                <p class="field-hint">Leave empty to keep the link forever.</p>
+
+                <p id="form-error" class="message error-message" role="alert" hidden></p>
+
+                <button id="submit-button" class="primary-button" type="submit">
+                    <span id="button-label">Shorten link</span>
+                    <span id="button-spinner" class="spinner" hidden></span>
+                    <span aria-hidden="true">↗</span>
+                </button>
+            </form>
+        </section>
+
+        <section id="result-card" class="result-card" aria-live="polite" hidden>
+            <div class="result-top">
+                <span class="success-icon" aria-hidden="true">✓</span>
+                <div>
+                    <h2>Your link is ready</h2>
+                    <p class="result-caption">Copy it and share it anywhere.</p>
+                </div>
+            </div>
+            <div class="result-link-row">
+                <a id="short-url" href="#" target="_blank" rel="noopener noreferrer"></a>
+                <button id="copy-button" class="copy-button" type="button">Copy link</button>
+            </div>
+            <div class="result-details">
+                <span class="detail-label">DESTINATION</span>
+                <p id="original-url" class="original-url"></p>
+                <p id="expiry-info" class="expiry-info" hidden></p>
+            </div>
+            <button id="create-another" class="text-button" type="button">+ Create another link</button>
+        </section>
+
+        <footer class="footer">
+            <span>Shortly</span>
+            <span>Just the link. Nothing extra.</span>
+        </footer>
+    </main>
+</body>
+</html>
